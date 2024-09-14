@@ -7,6 +7,9 @@
 # useful for handling different item types with a single interface
 from itemadapter import ItemAdapter
 import re
+import mysql.connector
+from dotenv import load_dotenv
+import os
 
 
 class LinkedinjobscraperPipeline:
@@ -21,3 +24,11 @@ class LinkedinjobscraperPipeline:
                     adapter[field_name]=adapter[field_name].strip()
                
         return item
+class saveToDatabase:
+    load_dotenv(dotenv_path='.sensitive')
+    def __init__(self):
+        self.conn=mysql.connector.connect(
+            host=os.getenv('HOST'),
+            user=os.getenv('USER'),
+            password=os.getenv('PASS')
+        )
