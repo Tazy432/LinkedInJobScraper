@@ -5,7 +5,7 @@ from LinkedInJobScraper.items import jobItem
 class LinkedinspiderSpider(scrapy.Spider):
     name = "linkedInSpider"
     allowed_domains = ["www.linkedin.com","ro.linkedin.com"]
-    start_urls = [f"https://www.linkedin.com/jobs/search?keywords=Data%20Engineer&location=Romania&geoId=106670623&trk=public_jobs_jobs-search-bar_search-submit&position=1&pageNum={i}" for i in range(0, 250, 25)]
+    start_urls = [f"https://www.linkedin.com/jobs/search?keywords=Data%20Engineer&location=Romania&geoId=106670623&trk=public_jobs_jobs-search-bar_search-submit&position=1&pageNum={i}" for i in range(0, 50, 25)]
     def parse(self, response):
         linkuri=response.xpath("//a[@class='base-card__full-link absolute top-0 right-0 bottom-0 left-0 p-0 z-[2]']/@href").getall()
         for job_link in linkuri:

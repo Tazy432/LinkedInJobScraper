@@ -23,16 +23,16 @@ class LinkedinjobscraperPipeline:
                 adapter[field_name] = re.sub(r'\n', '', adapter[field_name])
                 if(field_name!="job_description"):
                     adapter[field_name]=adapter[field_name].strip()
+            
                
         return item
 class saveToDatabase:
-    load_dotenv(dotenv_path='.sensitive')
-    
+    load_dotenv(dotenv_path="C:\\Users\\Andrei\\Desktop\\Portofoliu\\LinkedInJobScraper&data\\.sensitive")
     def __init__(self):
         self.conn=mysql.connector.connect(
-            host=os.getenv('HOST'),
-            user=os.getenv('USER'),
-            password=os.getenv('PASS')      
+            host=os.getenv("HOST"),
+            user=os.getenv("USER"),
+            password=os.getenv("PASS")      
         )
         self.cur=self.conn.cursor()
         try:
@@ -53,10 +53,10 @@ class saveToDatabase:
         job_program varchar(255),
         job_category varchar(255),
         job_activity_sector varchar(255),
-        primary key(job_id))
+        primary key(job_id)
+        )
                          """)
-
-    def insertItemIntoDatabase(self,item,spider):
+    def process_item(self,item,spider):     
         self.cur.execute("""
         insert into Jobs(job_url,job_title,job_company,job_nr_candidates,job_description,job_level,job_program,job_category,job_activity_sector)
                          values( %s,%s,%s,%s,%s,%s,%s,%s,%s)
